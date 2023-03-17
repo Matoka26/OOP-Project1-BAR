@@ -1145,4 +1145,5 @@ void Meniu::header(){
 int main(){
     Meniu meniu;
     meniu.start();
+    return 0;
 }
