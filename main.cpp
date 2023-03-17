@@ -463,7 +463,7 @@ istream& operator>>(istream& in, Bar& obj){
     in>>obj.locuri;
     cout<<"Cate locuri sunt ocupate in bar?"<<endl;
     in>>obj.locuriOcupate;
-    cout<<"Au fost incidente in seara asta?"<<endl;
+    cout<<"Au fost incidente in seara asta?(0 sau 1)"<<endl;
     in>>obj.incidente;
     return in;
 }
