@@ -703,7 +703,7 @@ bool Bauturi::operator>(const Bauturi& obj){
     return 0;
 }
 bool Bauturi::operator==(const Bauturi& obj){
-    if(this->pret == obj.pret) return 1;
+    if(this->pret == obj.pret && this->procentAlcool == obj.procentAlcool) return 1;
     return 0;
 }
 Bauturi Bauturi::operator+(Bauturi obj){
