@@ -924,8 +924,8 @@ void Meniu::jocCastig(Client& obj){
                 }
                 else{
                     obj= obj +castigPotential;
+                    jocPacanea(obj);
                 }
-    return;
 }
 void Meniu::jocPacanea(Client& obj){
     header();
@@ -945,17 +945,18 @@ void Meniu::jocPacanea(Client& obj){
         case(1):{
             if(obj.getBalanta() >= this->aparat.getMana()){
                 this->aparat.daMana();
-                obj.setBalanta(obj.getBalanta()-this->aparat.getMana());
-
-            if(this->aparat.castigator())
-                jocCastig(obj);
+                obj.setBalanta(obj.getBalanta() - this->aparat.getMana());
+                if(this->aparat.castigator())
+                    jocCastig(obj);
             }
             else{
                 cout<<"Fonduri insuficiente"<<endl;
                 system("pause");
+                jocPacanea(obj);
+                break;
+                }
             jocPacanea(obj);
             break;
-        }
         }
         case(2):{
             ++this->aparat;
@@ -977,7 +978,7 @@ void Meniu::jocPacanea(Client& obj){
         }
 
     }
-return;
+
 }
 void Meniu::start(){
     configurareBar();
@@ -1016,7 +1017,6 @@ void Meniu::start(){
     cout<<"Barul a facut in seara asta "<<this->bar.getVenitulSerii()<<"RON"<<endl;
     if(this->bar.getincidente()) cout<<"Din pacate au fost iesiri violente ale clientilor, iar paza a intervenit"<<endl;
         else cout<<"A fost o seara linistita"<<endl;
-    return;
 }
 
 void Meniu::servire(Client& obj){//gata
@@ -1044,7 +1044,7 @@ void Meniu::servire(Client& obj){//gata
             break;
         }
     }
-    return;
+
 }
 
 void Meniu::afisareMeniu(Client& obj){
@@ -1104,7 +1104,7 @@ void Meniu::afisareMeniu(Client& obj){
                 break;
             }
         }
-    return;
+
 }
 void Meniu::setareListaBauturiInitiala(){
     float f[] = {0.5,1,2};
