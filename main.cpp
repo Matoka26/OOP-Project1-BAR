@@ -906,34 +906,38 @@ void Meniu::jocCastig(Client& obj){
     cout<<"BET: "<<this->aparat.getMana()*10<<" Credits"<<endl;
     cout<<"BALANTA: "<<obj.getBalanta()*10<<" Credits"<<endl;
                 int castigPotential = this->aparat.getMana()*10;
-      eticheta:
-                k = 10;
-                SetConsoleTextAttribute(hConsole, k);
-                hr();
-                cout<<setw(66)<<"!!!CASTIGATOR!!!"<<setw(45)<<"CASTIG: "<<castigPotential*10<<"CREDITS"<<endl;
-                hr();
-                cout<<"GAMBLE?"<<endl<<endl;
-                cout<<"1. DA!!!"<<endl;
-                cout<<"2. mnu, incasare"<<endl;
-                int gamble;
-                cin>>gamble;
-                if(gamble == 1){
-                    hr();
-                    k = 12;
+                int gamble = 0;
+                do{
+                    k = 10;
                     SetConsoleTextAttribute(hConsole, k);
-                    cout<<setw(70)<<"(1)ROSIE || (2)NEAGRA"<<endl;
-                    k = 7;
-                    SetConsoleTextAttribute(hConsole,k);
+                    hr();
+                    cout<<setw(66)<<"!!!CASTIGATOR!!!"<<setw(45)<<"CASTIG: "<<castigPotential*10<<"CREDITS"<<endl;
+                    hr();
+                    cout<<"GAMBLE?"<<endl<<endl;
+                    cout<<"1. DA!!!"<<endl;
+                    cout<<"2. mnu, incasare"<<endl;
                     cin>>gamble;
-                    if(dublaj(gamble)){
-                        castigPotential = castigPotential*2;
-                        goto eticheta;
+                    if(gamble == 1){
+                        hr();
+                        k = 12;
+                        SetConsoleTextAttribute(hConsole, k);
+                        cout<<setw(70)<<"(1)ROSIE || (2)NEAGRA"<<endl;
+                        k = 7;
+                        SetConsoleTextAttribute(hConsole,k);
+                        cin>>gamble;
+                        if(dublaj(gamble))
+                            castigPotential = castigPotential*2;
+                        else
+                            break;
                     }
-                }
-                else{
-                    obj= obj +castigPotential;
-                    jocPacanea(obj);
-                }
+                    else{
+                        k = 7;
+                        SetConsoleTextAttribute(hConsole, k);
+                        obj= obj +castigPotential;
+                        jocPacanea(obj);
+                    }
+                }while(gamble == 1);
+
 }
 void Meniu::jocPacanea(Client& obj){
     header();
