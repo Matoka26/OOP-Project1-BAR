@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <iomanip>
+#include <cmath>
 #include <windows.h>
 
 using namespace std;
@@ -67,14 +68,14 @@ bool Pacanea::castigator(){
     if(car1 == car2 && car2 == car3) return 1;
     return 0;
 }
-Pacanea::Pacanea(){//initializare fara param
+Pacanea::Pacanea(){
     numePacanea = "Nimic";
     car1 = '-';
     car2 = '-';
     car3 = '-';
     mana = 0;
 }
-Pacanea::Pacanea(string numePacanea,char car1,char car2,char car3,float mana){//cu parametri
+Pacanea::Pacanea(string numePacanea,char car1,char car2,char car3,float mana){
     this->numePacanea = numePacanea;
     this->car1 = car1;
     this->car2 = car2;
@@ -82,14 +83,14 @@ Pacanea::Pacanea(string numePacanea,char car1,char car2,char car3,float mana){//
     this->mana = mana;
 
 }
-Pacanea::Pacanea(const Pacanea& obj){//copiere
+Pacanea::Pacanea(const Pacanea& obj){
     this->numePacanea = obj.numePacanea;
     this->car1 = obj.car1;
     this->car2 = obj.car2;
     this->car3 = obj.car3;
     this->mana = obj.mana;
 }
-//operatori
+
 Pacanea& Pacanea::operator=(const Pacanea& obj){
     this->numePacanea = obj.numePacanea;
     this->car1 = obj.car1;
@@ -194,9 +195,9 @@ private:
     float alcoolemie;
 
 public:
-    Client();   //constructor de initializare
-    Client(char* numeClient,float balanta,float alcoolemie); //constructor de initializare cu parametri
-    Client(const Client& obj); //constructor de copiere
+    Client();
+    Client(char* numeClient,float balanta,float alcoolemie);
+    Client(const Client& obj);
         //operatori
     Client& operator=(const Client& obj);
     friend ostream& operator<<(ostream& out ,const Client& obj);
@@ -235,7 +236,7 @@ Client::operator int(){
 }
 Client Client::operator+(Pacanea& obj){
     Client copie(*this);
-    copie.balanta = copie.balanta + 30*obj.getMana();
+    copie.balanta = copie.balanta + 10*obj.getMana();
     return copie;
 }
 int Client::varsta(){
@@ -250,19 +251,19 @@ void Client::setNumeClient(char* numeClient){//setter
     strcpy(this->numeClient , numeClient);
 }
 int Client::contorId = 123;
-Client::Client():clientId(contorId++){ //constructor de initializare
+Client::Client():clientId(contorId++){
     numeClient = new char[strlen("Anonim")+1];
     strcpy(numeClient,"Anonim");
     balanta = 0;
     alcoolemie = 0.0;
 }
-Client::Client(char* numeClient,float balanta,float alcoolemie):clientId(contorId++){//constructor de initializare cu parametri
+Client::Client(char* numeClient,float balanta,float alcoolemie):clientId(contorId++){
     this->numeClient = new char[strlen(numeClient)+1];
     strcpy(this->numeClient,numeClient);
     this->balanta = balanta;
     this->alcoolemie = alcoolemie;
 }
-Client::Client(const Client& obj):clientId(obj.clientId){//constructor de copiere
+Client::Client(const Client& obj):clientId(obj.clientId){
     this->numeClient = new char[strlen(obj.numeClient)+1];
     strcpy(this->numeClient,obj.numeClient);
     this->balanta = obj.balanta;
@@ -363,7 +364,7 @@ Client operator+(int numar,Client obj){
     obj.balanta = obj.balanta + numar;
     return obj;
 }
-Client::~Client(){//destructor
+Client::~Client(){
     if(this->numeClient != NULL){
         delete[] this->numeClient;
         this->numeClient = NULL;
@@ -380,10 +381,9 @@ private:
     int locuriOcupate;
     bool incidente;
 public:
-    Bar(); //constructor de initializare
-    Bar(float venitulSeri,int locuri,int locuriOcupate,bool incidente);//constructor de initializare cu parametri
-    Bar(const Bar& obj);//constructor de copiere
-    //operatori
+    Bar();
+    Bar(float venitulSeri,int locuri,int locuriOcupate,bool incidente);
+    Bar(const Bar& obj);
     Bar& operator=(const Bar& obj);
     friend ostream& operator<<(ostream& out,const Bar& obj);
     friend istream& operator>>(istream& in , Bar& obj);
@@ -411,7 +411,7 @@ public:
     void setVenitulSerii(int venitulSerii){this->venitulSerii = venitulSerii;}
     void setLocuri(int locuri){this->locuri = locuri;}
     void setLocuriOcupate(int locuriOcupate){this->locuriOcupate = locuriOcupate;}
-    void setincidente(bool incidente){this->incidente = incidente;}
+    void setIncidente(bool incidente){this->incidente = incidente;}
     //destructor
     ~Bar();
 };
@@ -427,19 +427,19 @@ Bar::Bar(){//constructor de initializare
     locuriOcupate = 0;
     incidente = 0;
 }
-Bar::Bar(float venitulSerii,int locuri,int locuriOcupate,bool incidente){//constructor de initializare cu parametri
+Bar::Bar(float venitulSerii,int locuri,int locuriOcupate,bool incidente){
     this->venitulSerii = venitulSerii;
     this->locuri = locuri;
     this->locuriOcupate = locuriOcupate;
     this->incidente = incidente;
 }
-Bar::Bar(const Bar& obj){//constructor de copiere
+Bar::Bar(const Bar& obj){
     this->venitulSerii = obj.venitulSerii;
     this->locuri = obj.locuri;
     this->locuriOcupate = obj.locuriOcupate;
     this->incidente = obj.incidente;
 }
-//operatori
+
 Bar& Bar::operator=(const Bar& obj){
     this->venitulSerii = obj.venitulSerii;
     this->locuri = obj.locuri;
@@ -538,10 +538,9 @@ private:
     int nrVolume;
     float* volume;
 public:
-    Bauturi();//constructor de initializare
-    Bauturi(char* numeBautura,int pret,double procentAlcool,int nrVolume,float* volume);//constructor de initializare
-    Bauturi(const Bauturi& obj);//constructor de copiere
-    //operatori
+    Bauturi();
+    Bauturi(char* numeBautura,int pret,double procentAlcool,int nrVolume,float* volume);
+    Bauturi(const Bauturi& obj);
     Bauturi& operator=(const Bauturi& obj);
     friend ostream& operator<<(ostream& out,const Bauturi& obj);
     friend istream& operator>>(istream& in,Bauturi& obj);
@@ -573,8 +572,7 @@ public:
     void setProcentAlcool(double procentAlcool){this->procentAlcool = procentAlcool;}
     void setNrVolume(int nrVolume){this->nrVolume = nrVolume;}
     void setVolume(float* volume);
-    friend class Meniu;
-    //destructor;
+
     ~Bauturi();
 };
 Bauturi::operator int(){
@@ -602,7 +600,7 @@ void Bauturi::setNumeBautura(char* numeBautura){//setter
     this->numeBautura = new char[strlen(numeBautura)+1];
     strcpy(this->numeBautura , numeBautura);
 }
-Bauturi::Bauturi(){//constructor de initializare fara parametri
+Bauturi::Bauturi(){
     numeBautura = new char[strlen("Nimic")+1];
     strcpy(numeBautura,"Nimic");
     pret = 0;
@@ -610,7 +608,7 @@ Bauturi::Bauturi(){//constructor de initializare fara parametri
     nrVolume = 0;
     volume = NULL;
 }
-Bauturi::Bauturi(char* numeBautura, int pret, double procentAlcool,int nrVolume,float* volume){//constructor de initializare
+Bauturi::Bauturi(char* numeBautura, int pret, double procentAlcool,int nrVolume,float* volume){
     this->numeBautura = new char[strlen(numeBautura)+1];
     strcpy(this->numeBautura,numeBautura);
     this->pret = pret;
@@ -620,7 +618,7 @@ Bauturi::Bauturi(char* numeBautura, int pret, double procentAlcool,int nrVolume,
     for(int i = 0 ; i < nrVolume ; i++)
         this->volume[i] = volume[i];
 }
-Bauturi::Bauturi(const Bauturi& obj){//constructor de copiere
+Bauturi::Bauturi(const Bauturi& obj){
     this->numeBautura = new char[strlen(obj.numeBautura)+1];
     strcpy(this->numeBautura,obj.numeBautura);
     this->volume = new float[obj.nrVolume];
@@ -631,7 +629,7 @@ Bauturi::Bauturi(const Bauturi& obj){//constructor de copiere
         this->volume[i] = obj.volume[i];
     }
 }
-//operatori
+
 Bauturi& Bauturi::operator=(const Bauturi& obj){
     if(this->numeBautura != NULL){
         delete[] this->numeBautura;
@@ -752,7 +750,7 @@ Bauturi operator+(int numar, Bauturi obj){
     return obj;
 }
 
-Bauturi::~Bauturi(){//destructor
+Bauturi::~Bauturi(){
     if(this->numeBautura != NULL){
         delete[] this->numeBautura;
         this->numeBautura = NULL;
@@ -849,7 +847,7 @@ void Meniu::ceVreiSaBei(Client& obj){
             cin>>checkDatAfara;
             if(checkDatAfara == 2){
                 cout<<"*** "<<obj.getNumeClient()<<" a fost dat afara pe brate de BGS ***"<<endl;
-                this->bar.setincidente(1);
+                this->bar.setIncidente(1);
                 system("pause");
                 return;
             }
@@ -899,14 +897,20 @@ void Meniu::configPacanea(){
     this->aparat.setMana(bet);
 }
 void Meniu::jocCastig(Client& obj){
- header();
+    header();
+    HANDLE  hConsole;
+    int k;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     cout<<setw(50)<<"~~~ "<<this->aparat.getNumePacanea()<<" ~~~"<<endl<<endl<<endl;
     cout<<setw(50)<<this->aparat.getCar1()<<" - "<<this->aparat.getCar2()<<" - "<<this->aparat.getCar3()<<endl<<endl;
     cout<<"BET: "<<this->aparat.getMana()*10<<" Credits"<<endl;
     cout<<"BALANTA: "<<obj.getBalanta()*10<<" Credits"<<endl;
                 int castigPotential = this->aparat.getMana()*10;
-      eticheta: hr();
-                cout<<setw(63)<<"!!!CASTIGATOR!!!"<<setw(45)<<"CASTIG: "<<castigPotential*10<<"CREDITS"<<endl;
+      eticheta:
+                k = 10;
+                SetConsoleTextAttribute(hConsole, k);
+                hr();
+                cout<<setw(66)<<"!!!CASTIGATOR!!!"<<setw(45)<<"CASTIG: "<<castigPotential*10<<"CREDITS"<<endl;
                 hr();
                 cout<<"GAMBLE?"<<endl<<endl;
                 cout<<"1. DA!!!"<<endl;
@@ -915,7 +919,11 @@ void Meniu::jocCastig(Client& obj){
                 cin>>gamble;
                 if(gamble == 1){
                     hr();
+                    k = 12;
+                    SetConsoleTextAttribute(hConsole, k);
                     cout<<setw(70)<<"(1)ROSIE || (2)NEAGRA"<<endl;
+                    k = 7;
+                    SetConsoleTextAttribute(hConsole,k);
                     cin>>gamble;
                     if(dublaj(gamble)){
                         castigPotential = castigPotential*2;
@@ -999,13 +1007,13 @@ void Meniu::start(){
         adaugareClient();
         if((*this->listaClienti[i]).varsta() < 18){
             cout<<"Din pacate "<<(*this->listaClienti[i]).getNumeClient()<<" nu are 18 ani,il rugam sa plece"<<endl;
-            system("sleep");
+            system("pause");
             this->listaClienti.pop_back();
         }
         else if((*this->listaClienti[i]).getAlcoolemie() >= 100){
             cout<<"Ai baut cam mult inainte. Din pacate va trebui sa pleci"<<endl;
             system("pause");
-            header();
+            //header();
             this->listaClienti.pop_back();
         }
         else
@@ -1019,7 +1027,7 @@ void Meniu::start(){
         else cout<<"A fost o seara linistita"<<endl;
 }
 
-void Meniu::servire(Client& obj){//gata
+void Meniu::servire(Client& obj){
     header();
     cout<<"Ce doresti, "<<obj.getNumeClient()<<"?"<<endl;
     cout<<"1.Sa vad meniul"<<endl;
@@ -1066,19 +1074,27 @@ void Meniu::afisareMeniu(Client& obj){
             break;
             }
         case(2):{
+            if(listaBauturi.size() < 1 ){
+                cout<<"Din pacate nu mai avem alte bauturi"<<endl;
+                system("pause");
+                afisareMeniu(obj);
+                    break;
+                    }
             ceVreiSaBei(obj);
             break;
             }
         case(3):{
                 if(listaBauturi.size() < 1 ){
-                    cout<<"Din pacate nu mai avem alte bauturi";
+                    cout<<"Din pacate nu mai avem alte bauturi"<<endl;
+                    system("pause");
+                    afisareMeniu(obj);
                     break;
                     }
                 int bauturaEliminata;
                 header();
                 cout<<"Ce ai vrea sa stergi?"<<endl<<endl;
                 for(int i = 0 ; i < this->listaBauturi.size() ; i++)
-                    cout<<i+1<<"."<<(*this->listaBauturi[i]).numeBautura<<endl;
+                    cout<<i+1<<"."<<(*this->listaBauturi[i]).getNumeBautura()<<endl;
                 cin>>bauturaEliminata;
                 header();
                 vector<Bauturi*>::iterator ptr;
@@ -1145,5 +1161,6 @@ void Meniu::header(){
 int main(){
     Meniu meniu;
     meniu.start();
+
     return 0;
 }
