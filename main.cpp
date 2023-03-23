@@ -214,7 +214,7 @@ public:
     Client& operator--();
     Client operator--(int);
     char operator[](int index);
-    Client operator+(Pacanea& obj);
+    Client operator+(const Pacanea& obj);
     friend Client operator+(int numar,Client obj);
     operator int();
         //functii
@@ -234,7 +234,7 @@ public:
 Client::operator int(){
     return this->clientId;
 }
-Client Client::operator+(Pacanea& obj){
+Client Client::operator+(const Pacanea& obj){
     Client copie(*this);
     copie.balanta = copie.balanta + 10*obj.getMana();
     return copie;
