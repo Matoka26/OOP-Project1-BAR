@@ -62,7 +62,7 @@ public:
     Joc(){this->numeJoc = "Secret";};
     Joc(string numeJoc){this->numeJoc = numeJoc;}
     Joc(const Joc& obj){this->numeJoc = obj.numeJoc;}
-    Joc& operator=(const Joc& obj){if(this != &obj)this->numeJoc = obj.numeJoc;}
+    Joc& operator=(const Joc& obj){if(this != &obj)this->numeJoc = obj.numeJoc; return *this;}
     Joc& operator--(){incercari = incercari-1; return *this;}
     friend istream& operator>>(istream& in,Joc& obj){cout<<"Cum se numeste jocul?\n";in>>obj.numeJoc;return in;}
     friend ostream& operator<<(ostream& out,const Joc& obj){out<<"Nume joc: "<<obj.numeJoc<<endl;return out;}
@@ -202,6 +202,7 @@ JocTabla& JocTabla::operator=(const JocTabla& obj){
 
 
     }
+    return *this;
 }
 
 JocTabla::JocTabla(const JocTabla& obj):Joc(obj){
